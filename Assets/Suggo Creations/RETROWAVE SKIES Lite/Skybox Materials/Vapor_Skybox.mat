@@ -88,7 +88,7 @@ Material:
     - BOOLEAN_FF1E9D2611CF4E959316C577475EA27F: 1
     - BOOLEAN_GLITCHYMOON: 1
     - BOOLEAN_PREVENTSTARS: 1
-    - Vector1_7d421ef4d57f45e586330be25bfb5941: 10
+    - Vector1_7d421ef4d57f45e586330be25bfb5941: 30
     - Vector1_a770b768a8ca40a9b814a01444e6b850: 2
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
@@ -111,8 +111,8 @@ Material:
     - _FogContrast: 30
     - _FogHeight: 1
     - _FogPower: 1
-    - _HorizonHeight: -0.03
-    - _HorizonStrength: 11.8
+    - _HorizonHeight: 0.1
+    - _HorizonStrength: 7
     - _LinesMaskPower: 22.8
     - _LinesSpeed: 0.7
     - _LinesThickness: 0.15
@@ -123,7 +123,7 @@ Material:
     - _RenderQueueType: 1
     - _SrcBlend: 1
     - _StarDensity: 15
-    - _StarSize: 100
+    - _StarSize: 84.8
     - _StencilRef: 0
     - _StencilRefDepth: 0
     - _StencilRefDistortionVec: 4
@@ -155,10 +155,10 @@ Material:
     - _Cubemap_Color: {r: 1, g: 1, b: 1, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HorizonColor: {r: 0.19474633, g: 0.03524386, b: 0.2264151, a: 1}
+    - _HorizonColor: {r: 0.8113208, g: 0, b: 0.802205, a: 1}
     - _LinesColor: {r: 0, g: 1, b: 0.50381684, a: 1}
-    - _SkyColor: {r: 0, g: 0, b: 0, a: 1}
-    - _StarColor: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 0}
+    - _SkyColor: {r: 0.0752047, g: 0.24528301, b: 0.11996214, a: 1}
+    - _StarColor: {r: 1, g: 1, b: 1, a: 0}
     - _SunColorOne: {r: 0.8, g: 0.95344543, b: 1, a: 1}
     - _SunColorTwo: {r: 0.79208773, g: 0.82883406, b: 0.83699995, a: 1}
   m_BuildTextureStacks: []

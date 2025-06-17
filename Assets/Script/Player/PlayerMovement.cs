@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float strength = 0.05f;
+            float strength = 0.3f;
             transform.position = originalPos + Random.insideUnitSphere * strength;
             elapsed += Time.deltaTime;
             yield return null;

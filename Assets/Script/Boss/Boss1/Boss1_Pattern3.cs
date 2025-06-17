@@ -5,6 +5,7 @@ public class Boss1_Pattern3 : BossPattern
 {
     public float spreadAngle = 60f;
     public int bulletCount = 10;
+    public float bulletSpeed; 
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
@@ -46,7 +47,7 @@ public class Boss1_Pattern3 : BossPattern
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.linearVelocity = rotatedDir * speed;
+                rb.linearVelocity = rotatedDir * speed * bulletSpeed;
             }
         }
 
