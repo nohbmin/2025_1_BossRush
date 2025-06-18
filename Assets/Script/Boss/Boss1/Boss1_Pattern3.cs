@@ -6,6 +6,8 @@ public class Boss1_Pattern3 : BossPattern
     public float spreadAngle = 60f;
     public int bulletCount = 10;
     public float bulletSpeed; 
+    public float waitingtime;
+    public float ChaseTime = 1.5f;
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
@@ -15,9 +17,7 @@ public class Boss1_Pattern3 : BossPattern
             bulletCount *= 3;
         }
 
-        // 1.5�� ȸ��
-        float t = 1.5f;
-        while (t > 0)
+        while (ChaseTime > 0)
         {
             Vector3 dir = (boss.player.position - boss.transform.position);
             dir.z = 0; // XY ��� ����
@@ -25,11 +25,12 @@ public class Boss1_Pattern3 : BossPattern
 
             Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, dir); // XY ���� ȸ��
             boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, targetRot, Time.deltaTime * 5f);
-            t -= Time.deltaTime;
+            ChaseTime -= Time.deltaTime;
             yield return null;
         }
+        ChaseTime = 0f;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(waitingtime);
 
         // źȯ �߻�
         for (int i = 0; i < bulletCount; i++)

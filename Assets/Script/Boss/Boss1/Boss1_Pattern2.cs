@@ -6,30 +6,42 @@ public class Boss1_Pattern2 : BossPattern
     public float waitBeforeFire = 1.5f;
     public float fireInterval = 0.5f;
     public float bulletSpeed = 7f;
+    public float rotationSpeed = 5f;          // 회전 속도
+    public float rotateDuration = 0.3f;       // 회전에 소요되는 시간
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
-        // 1.5초 대기
+        // 대기
         yield return new WaitForSeconds(waitBeforeFire);
 
-        // 시작 각도 (대각선 방향 중 하나)
+        // 시작 각도 (대각선 중 하나)
         float[] diagonals = { 45f, 135f, 225f, 315f };
         float startAngle = diagonals[Random.Range(0, diagonals.Length)];
 
-        // 시계 or 반시계 방향 (1 또는 -1)
+        // 회전 방향
         int direction = Random.value > 0.5f ? 1 : -1;
 
         for (int i = 0; i < 4; i++)
         {
             float angle = startAngle + direction * i * 90f;
+            Quaternion targetRot = Quaternion.Euler(0, 0, angle);
 
-            // XY 평면 기준 회전 (Z축 회전)
-            Quaternion rot = Quaternion.Euler(0, 0, angle);
-            Vector3 dir = Quaternion.Euler(0, 0, angle) * Vector3.up;
+            // 자연스러운 회전
+            float t = 0;
+            Quaternion startRot = boss.transform.rotation;
+            while (t < 1f)
+            {
+                t += Time.deltaTime * rotationSpeed;
+                boss.transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
+                yield return null;
+            }
+
+            // 탄 방향 설정
+            Vector3 dir = targetRot * Vector3.up;
 
             GameObject bullet = boss.bulletPool.GetBullet();
             bullet.transform.position = boss.firePoint.position;
-            bullet.transform.rotation = rot;
+            bullet.transform.rotation = targetRot;
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
