@@ -1,35 +1,52 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Move Settings")]
     public float moveDuration = 0.5f;
     public AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Input Buffer")]
     public float inputBufferTime = 0.2f;
+
+    [Header("Warp Settings")]
+    public LayerMask warpLayer;
 
     private MovePoint currentPoint;
     private bool isMoving = false;
+    private Coroutine moveCoroutine = null;
 
-    private Vector2 inputDirection = Vector2.zero;
     private Vector2 bufferedInput = Vector2.zero;
     private float bufferTimer = 0f;
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!context.performed) return;
+
+        Vector2 input = context.ReadValue<Vector2>().normalized;
+
+        // 이동 중이면 워프만 시도하고 안되면 버퍼에 저장
+        if (isMoving)
         {
-            Vector2 dir = context.ReadValue<Vector2>();
-            if (!isMoving)
-                TryMove(dir);
-            else
+            if (!TryWarp(input))
             {
-                bufferedInput = dir;
+                bufferedInput = input;
                 bufferTimer = inputBufferTime;
+            }
+        }
+        else
+        {
+            // 워프 우선 → 없으면 일반 이동
+            if (!TryWarp(input))
+            {
+                TryMove(input);
             }
         }
     }
 
-    void Start()
+    private void Start()
     {
         currentPoint = FindClosestMovePoint();
         if (currentPoint != null)
@@ -38,11 +55,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No MovePoint found nearby.");
+            Debug.LogError("No MovePoint found near the player.");
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (!isMoving && bufferedInput != Vector2.zero)
         {
@@ -53,33 +70,30 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                TryMove(bufferedInput);
+                if (!TryWarp(bufferedInput))
+                {
+                    TryMove(bufferedInput);
+                }
                 bufferedInput = Vector2.zero;
             }
         }
     }
 
-    void TryMove(Vector2 direction)
+    private void TryMove(Vector2 input)
     {
-        direction = direction.normalized;
-        MovePoint target = null;
-
-        if (direction.y > 0.5f) target = currentPoint.up;
-        else if (direction.y < -0.5f) target = currentPoint.down;
-        else if (direction.x < -0.5f) target = currentPoint.left;
-        else if (direction.x > 0.5f) target = currentPoint.right;
-
-        if (target != null)
+        if (IsMovable(input, out MovePoint nextPoint))
         {
-            StartCoroutine(MoveToPoint(target));
-        }
-        else
-        {
-            StartCoroutine(Shake());
+            moveCoroutine = StartCoroutine(MoveToPoint(nextPoint));
         }
     }
 
-    System.Collections.IEnumerator MoveToPoint(MovePoint targetPoint)
+    private bool IsMovable(Vector2 input, out MovePoint nextPoint)
+    {
+        nextPoint = currentPoint.GetNeighbor(input);
+        return nextPoint != null;
+    }
+
+    private IEnumerator MoveToPoint(MovePoint targetPoint)
     {
         isMoving = true;
 
@@ -99,34 +113,43 @@ public class PlayerMovement : MonoBehaviour
         transform.position = end;
         currentPoint = targetPoint;
         isMoving = false;
+        moveCoroutine = null;
     }
 
-    System.Collections.IEnumerator Shake()
+    private bool TryWarp(Vector2 input)
     {
-        isMoving = true;
-        Vector3 originalPos = transform.position;
-        float duration = 0.1f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
+        Collider[] hits = Physics.OverlapSphere(transform.position, 1f, warpLayer);
+        foreach (var hit in hits)
         {
-            float strength = 0.3f;
-            transform.position = originalPos + Random.insideUnitSphere * strength;
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+            WarpPoint warpPoint = hit.GetComponent<WarpPoint>();
+            if (warpPoint != null && warpPoint.IsValidDirection(input))
+            {
+                MovePoint targetPoint = warpPoint.GetTargetPoint();
+                if (targetPoint != null)
+                {
+                    if (moveCoroutine != null)
+                    {
+                        StopCoroutine(moveCoroutine);
+                        moveCoroutine = null;
+                    }
 
-        transform.position = originalPos;
-        isMoving = false;
+                    transform.position = targetPoint.transform.position;
+                    currentPoint = targetPoint;
+                    isMoving = false;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-    MovePoint FindClosestMovePoint()
+    private MovePoint FindClosestMovePoint()
     {
-        MovePoint[] points = FindObjectsOfType<MovePoint>();
+        MovePoint[] allPoints = FindObjectsOfType<MovePoint>();
         MovePoint closest = null;
         float minDist = Mathf.Infinity;
 
-        foreach (var point in points)
+        foreach (var point in allPoints)
         {
             float dist = Vector3.Distance(transform.position, point.transform.position);
             if (dist < minDist)
