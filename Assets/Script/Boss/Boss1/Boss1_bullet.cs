@@ -3,7 +3,6 @@ using UnityEngine;
 public class Boss1_bullet : MonoBehaviour
 {
     public float lifeTime = 3f;
-
     private float timer;
 
     private void OnEnable()

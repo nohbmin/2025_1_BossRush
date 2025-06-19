@@ -306,9 +306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spreadAngle: 60
   bulletCount: 15
-  bulletSpeed: 6
+  bulletSpeed: 10
   waitingtime: 0.3
-  ChaseTime: 2
+  ChaseTime: 4
 --- !u!114 &229867279
 MonoBehaviour:
   m_ObjectHideFlags: 0

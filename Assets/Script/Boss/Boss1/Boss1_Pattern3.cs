@@ -17,7 +17,9 @@ public class Boss1_Pattern3 : BossPattern
             bulletCount *= 3;
         }
 
-        while (ChaseTime > 0)
+        float chaseing = ChaseTime;
+
+        while (chaseing > 0)
         {
             Vector3 dir = (boss.player.position - boss.transform.position);
             dir.z = 0; // XY ��� ����
@@ -25,10 +27,9 @@ public class Boss1_Pattern3 : BossPattern
 
             Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, dir); // XY ���� ȸ��
             boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, targetRot, Time.deltaTime * 5f);
-            ChaseTime -= Time.deltaTime;
+            chaseing -= Time.deltaTime;
             yield return null;
         }
-        ChaseTime = 0f;
 
         yield return new WaitForSeconds(waitingtime);
 
