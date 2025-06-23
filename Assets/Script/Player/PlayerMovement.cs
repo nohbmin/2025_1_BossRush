@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Warp Settings")]
     public LayerMask warpLayer;
+    public BossController boss;
 
     private MovePoint currentPoint;
     private bool isMoving = false;
@@ -20,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 bufferedInput = Vector2.zero;
     private float bufferTimer = 0f;
-
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -134,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     transform.position = targetPoint.transform.position;
+                    boss.OnHitByWarp();
                     currentPoint = targetPoint;
                     isMoving = false;
                     return true;

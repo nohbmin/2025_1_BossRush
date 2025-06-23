@@ -4,42 +4,42 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    [Header("Boss Settings")]
     public int maxHP = 10;
-    public int currentHP;
+    [SerializeField]private int currentHP;
 
-    [Header("대기 시간")]
-    public float WaitTime;
+    public bool isInSpecialPattern = false;
 
-    [Header("공유 오브젝트")]
+    [Header("Pattern Settings")]
+    public List<BossPattern> normalPatterns;
+    public BossPattern specialPattern;
+    [SerializeField]private int normalPatternCount = 0;
+
+    [Header("References")]
     public Transform player;
     public Transform firePoint;
-
-    [Header("패턴")]
-    public List<BossPattern> normalPatterns = new List<BossPattern>();
-    public BossPattern specialPattern;
-
-    [Header("총알 풀링")]
     public BulletPool bulletPool;
 
-    private int patternCount = 0;
+    [Header("Special Pattern")]
+    public float specialPatternDuration = 8f;
+    public bool HasBeenHitDuringSpecial = false;
 
+    [Header("Visual Feedback")]
+    public Animator animator;
+    public BossEffectController effectController; // 쉐이크/임팩트용
+
+
+    private void Awake()
+    {
+        foreach (var pattern in normalPatterns)
+        {
+            pattern.Initialize(this);
+        }
+        specialPattern.Initialize(this);
+    }
     private void Start()
     {
         currentHP = maxHP;
-
-        var allPatterns = GetComponents<BossPattern>();
-
-        foreach (var pattern in allPatterns)
-        {
-            if (pattern != specialPattern)
-                normalPatterns.Add(pattern);
-
-            pattern.Initialize(this);  // BossController 참조 전달
-        }
-
-        if (bulletPool == null)
-            Debug.LogWarning("BulletPool이 할당되지 않았습니다!");
-
         StartCoroutine(PatternLoop());
     }
 
@@ -47,24 +47,78 @@ public class BossController : MonoBehaviour
     {
         while (currentHP > 0)
         {
-            if (patternCount > 0 && patternCount % 3 == 0)
+            if (normalPatternCount > 0 && normalPatternCount % 3 == 0)
             {
-                if (specialPattern != null)
-                    yield return StartCoroutine(specialPattern.ExecutePattern(currentHP, maxHP));
+                yield return StartCoroutine(ExecuteSpecialPattern());
+                normalPatternCount = 0;
+                continue;
             }
-            else
-            {
-                if (normalPatterns.Count > 0)
-                {
-                    int idx = Random.Range(0, normalPatterns.Count);
-                    print(normalPatterns[idx] + " 실행됨");
-                    yield return StartCoroutine(normalPatterns[idx].ExecutePattern(currentHP, maxHP));
-                }
-            }
-            patternCount++;
-            yield return new WaitForSeconds(WaitTime);
+
+            BossPattern selected = normalPatterns[Random.Range(0, normalPatterns.Count)];
+            yield return StartCoroutine(selected.ExecutePattern(currentHP, maxHP));
+            normalPatternCount++;
+
+            yield return new WaitForSeconds(1f);
         }
 
-        Debug.Log("Boss Dead!");
+        Die();
+    }
+
+    private IEnumerator ExecuteSpecialPattern()
+    {
+        isInSpecialPattern = true;
+        HasBeenHitDuringSpecial = false;
+
+        if (specialPattern != null)
+        {
+            Coroutine patternRoutine = StartCoroutine(specialPattern.ExecutePattern(currentHP, maxHP));
+            float elapsed = 0f;
+
+            while (elapsed < specialPatternDuration && !HasBeenHitDuringSpecial)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            StopCoroutine(patternRoutine);
+        }
+
+        isInSpecialPattern = false;
+    }
+
+    public void EndSpecialPattern()
+    {
+        isInSpecialPattern = false;
+
+        // 추가적으로 패턴 루프 재시작이 필요하다면 여기에 작성
+        // 예시: StartCoroutine(PatternLoop());
+    }
+
+    public void OnHitByWarp()
+    {
+        if (isInSpecialPattern && !HasBeenHitDuringSpecial)
+        {
+            HasBeenHitDuringSpecial = true;
+            TakeDamage(1);
+            effectController?.PlayHitEffect();
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage;
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+            StopAllCoroutines();
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        animator?.SetTrigger("Die");
+        Debug.Log("Boss Defeated!");
+        // 추후 보스 사망 처리 추가
     }
 }
