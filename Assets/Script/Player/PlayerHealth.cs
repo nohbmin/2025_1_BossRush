@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int currentHealth;
 
     [Header("Player Models by Health (Index 0 = Dead)")]
-    public GameObject[] healthModels; // Index 0: Ã¼·Â 0(Á×Àº »óÅÂ), 1: Ã¼·Â 1, ..., maxHealth: Ã¼·Â max
+    public GameObject[] healthModels; // Index 0: Ã¼ï¿½ï¿½ 0(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½), 1: Ã¼ï¿½ï¿½ 1, ..., maxHealth: Ã¼ï¿½ï¿½ max
     GameObject visualObject;
 
     private Animator animator;
@@ -38,8 +38,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (currentHealth <= 0) return;
-
+        if (currentHealth <= 0 || isInvincible) return; // ë¬´ì  ìƒíƒœì¼ ë•Œ ë°ë¯¸ì§€ë¥¼ ë°›ì§€ ì•Šë„ë¡ ìˆ˜ì •
+    
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateModel();
@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
         if (playerCollider != null)
             playerCollider.enabled = false;
 
-        Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
+        Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½");
     }
 
 

@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f861b7c9-f2ad-4215-8ab7-c080c1c26d8f" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2025_1_BossRush(Test)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2025_1_BossRush(Test)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AnimTestScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AnimTestScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +33,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -86,7 +84,8 @@
       <option name="presentableId" value="Default" />
       <updated>1750601437647</updated>
       <workItem from="1750601440294" duration="1000" />
-      <workItem from="1750646327632" duration="651000" />
+      <workItem from="1750646327632" duration="2452000" />
+      <workItem from="1750648833555" duration="667000" />
     </task>
     <servers />
   </component>
@@ -102,5 +101,9 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

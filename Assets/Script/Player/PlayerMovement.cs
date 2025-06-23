@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 input = context.ReadValue<Vector2>().normalized;
 
-        // ÀÌµ¿ ÁßÀÌ¸é ¿öÇÁ¸¸ ½ÃµµÇÏ°í ¾ÈµÇ¸é ¹öÆÛ¿¡ ÀúÀå
+        // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ï¿½Ï°ï¿½ ï¿½ÈµÇ¸ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (isMoving)
         {
             if (!TryWarp(input))
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // ¿öÇÁ ¿ì¼± ¡æ ¾øÀ¸¸é ÀÏ¹İ ÀÌµ¿
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½Ìµï¿½
             if (!TryWarp(input))
             {
                 TryMove(input);
@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
 
     private MovePoint FindClosestMovePoint()
     {
-        MovePoint[] allPoints = FindObjectsOfType<MovePoint>();
+        MovePoint[] allPoints = FindObjectsByType<MovePoint>(FindObjectsSortMode.None); // ê²°ê³¼ í•­ìƒ ì •ë ¬ í•„ìš” x (ìˆ˜ì •ë³¸)
         MovePoint closest = null;
         float minDist = Mathf.Infinity;
 
