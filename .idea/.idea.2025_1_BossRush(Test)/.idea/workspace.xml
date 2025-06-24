@@ -5,31 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f861b7c9-f2ad-4215-8ab7-c080c1c26d8f" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.2025_1_BossRush(Test)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2025_1_BossRush(Test)/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Boss_Die.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Boss_Die.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Boss_Heat.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Boss_Heat.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Gun_Rong.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Gun_Rong.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Gun_Short.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Gun_Short.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Player_Die.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Player_Die.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Player_Heat.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Sound/Sound_Effect/Player_Heat.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/AudioManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/AudioManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/SceneTransition.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/SceneTransition.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/StartScreenManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/StartScreenManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/VolumeSettings.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/UI/Script/VolumeSettings.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/StartScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/StartScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Bullet.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Bullet.prefab.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +17,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Kimbk/Sound/SimpleButtonSound.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Kimbk/Sound/VolumeSlider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Kimbk/UI/Script/Dead/DeadSceneUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@9c8ceca205de/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
@@ -118,7 +96,7 @@
       <workItem from="1750649659035" duration="1190000" />
       <workItem from="1750668727537" duration="1567000" />
       <workItem from="1750686931359" duration="25000" />
-      <workItem from="1750740847374" duration="1787000" />
+      <workItem from="1750740847374" duration="2945000" />
     </task>
     <servers />
   </component>
