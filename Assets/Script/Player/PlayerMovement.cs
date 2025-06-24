@@ -18,11 +18,13 @@ public class PlayerMovement : MonoBehaviour
     private MovePoint currentPoint;
     private bool isMoving = false;
     private Coroutine moveCoroutine = null;
+    public bool isDead = false;
 
     private Vector2 bufferedInput = Vector2.zero;
     private float bufferTimer = 0f;
     public void OnMove(InputAction.CallbackContext context)
     {
+        if(isDead) return;
         if (!context.performed) return;
 
         Vector2 input = context.ReadValue<Vector2>().normalized;

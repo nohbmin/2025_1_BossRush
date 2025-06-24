@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Playables;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject[] healthModels; // Index 0: ü�� 0(���� ����), 1: ü�� 1, ..., maxHealth: ü�� max
     GameObject visualObject;
 
-    private Animator animator;
+    private PlayableDirector playableDirector;
     private PlayerMovement movement;
     private Collider playerCollider;
 
@@ -20,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        playableDirector = GetComponentInChildren<PlayableDirector>();
         movement = GetComponent<PlayerMovement>();
         playerCollider = GetComponent<Collider>();
         visualObject = healthModels[healthModels.Length - 1];
@@ -93,16 +94,11 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        if (animator != null)
-            animator.SetTrigger("Dead");
-
         if (movement != null)
-            movement.enabled = false;
+            movement.isDead = true;
 
         if (playerCollider != null)
             playerCollider.enabled = false;
-
-        Debug.Log("�÷��̾� ���");
     }
 
 
