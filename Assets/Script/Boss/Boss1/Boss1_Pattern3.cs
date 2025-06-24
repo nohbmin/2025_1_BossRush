@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Boss1_Pattern3 : BossPattern
 {
-    public float spreadAngle = 60f;
-    public int bulletCount = 10;
+    public float FirstSpreadAngle = 60f;
+    public int FirstBulletCount = 10;
     public int upgradeHp = 2;
     public float bulletSpeed; 
     public float waitingtime;
@@ -13,8 +13,13 @@ public class Boss1_Pattern3 : BossPattern
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
+        float spreadAngle = FirstSpreadAngle;
+        int bulletCount = FirstBulletCount;
+
+        print(currentHP + " 와 " + upgradeHp);
         if (currentHP <= upgradeHp)
         {
+            print("3스 강화");
             spreadAngle *= 2;
             bulletCount *= 3;
         }

@@ -35,8 +35,8 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
-        patternCoroutine = StartCoroutine(PatternLoop());
         currenthp = maxhp;
+        patternCoroutine = StartCoroutine(PatternLoop());
     }
 
     private IEnumerator PatternLoop()
@@ -93,6 +93,8 @@ public class BossController : MonoBehaviour
     public void OnHitByWarp()
     {
         print("ÇÇ°Ý");
+        effectController.PlayHitEffect();
+        currenthp--;
         if (!isInSpecialPattern || isHit) return;
 
         isHit = true;

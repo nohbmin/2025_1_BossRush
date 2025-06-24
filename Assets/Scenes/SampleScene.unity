@@ -378,6 +378,7 @@ GameObject:
   - component: {fileID: 229867279}
   - component: {fileID: 229867278}
   - component: {fileID: 229867281}
+  - component: {fileID: 229867282}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -418,7 +419,7 @@ MonoBehaviour:
   player: {fileID: 2024086191}
   firePoint: {fileID: 132537848}
   bulletPool: {fileID: 1273716913}
-  effectController: {fileID: 0}
+  effectController: {fileID: 229867282}
   patterns:
   - {fileID: 229867280}
   - {fileID: 229867279}
@@ -431,7 +432,7 @@ MonoBehaviour:
   - {fileID: 732770001}
   - {fileID: 1184147208}
   maxhp: 3
-  currenthp: 0
+  currenthp: 1
 --- !u!114 &229867278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,12 +445,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b092108d81380264e8466d96b6e6c315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spreadAngle: 60
-  bulletCount: 15
+  FirstSpreadAngle: 60
+  FirstBulletCount: 10
   upgradeHp: 2
   bulletSpeed: 16
   waitingtime: 0.5
-  ChaseTime: 3
+  ChaseTime: 2
   soundEffect: {fileID: 8300000, guid: b480b031ce4710a4e95b8a8928f693e5, type: 3}
 --- !u!114 &229867279
 MonoBehaviour:
@@ -469,7 +470,7 @@ MonoBehaviour:
   rotationSpeed: 7
   rotateDuration: 0.3
   warningSign: {fileID: 933233145972547180, guid: 9104aaeac1551634db74579e26c512d6, type: 3}
-  warningDistance: 12.55
+  warningDistance: 12.5
   warningDuration: 0.5
   soundEffect: {fileID: 8300000, guid: 98a09594958b067478e481b443a85b2d, type: 3}
   ReloadsoundEffect: {fileID: 8300000, guid: 745a6288f21b5f945a3fc104acf00f8b, type: 3}
@@ -487,8 +488,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootDuration: 5
   fireInterval: 0.2
-  bulletSpeed: 20
-  rotationSpeed: 30
+  FirstbulletSpeed: 13
+  FirstrotationSpeed: 7
+  upgradeHp: 2
   soundEffect: {fileID: 8300000, guid: 98a09594958b067478e481b443a85b2d, type: 3}
 --- !u!114 &229867281
 MonoBehaviour:
@@ -508,6 +510,23 @@ MonoBehaviour:
   duration: 10
   bulletSpeed: 10
   soundeffect: {fileID: 8300000, guid: 98a09594958b067478e481b443a85b2d, type: 3}
+--- !u!114 &229867282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229867272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57b2bf1b648add4abf1cfa4f77b1f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossRenderer: {fileID: 889615964}
+  visualTransform: {fileID: 755515823}
+  shakeDuration: 0.3
+  shakeIntensity: 0.4
+  flashDuration: 0.2
 --- !u!1 &282141328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1783,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885716264}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &889615964 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: cec9266fc0f5920458e37b93ae7a0925, type: 3}
+  m_PrefabInstance: {fileID: 2019984487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &921110311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1340623208455363982, guid: 89a21e4781064af4b94b8c80c5d64350, type: 3}
