@@ -8,6 +8,7 @@ public class Boss1_Special : BossPattern
     public float acceleration = 0.05f;
     public float duration = 10f;
     public float bulletSpeed = 15f;
+    public AudioClip soundeffect;
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
@@ -32,6 +33,8 @@ public class Boss1_Special : BossPattern
             GameObject bullet = boss.bulletPool.GetBullet();
             bullet.transform.position = boss.firePoint.position;
             bullet.transform.rotation = Quaternion.LookRotation(Vector3.forward, shootDir);
+
+            AudioManager.instance.PlaySFX(soundeffect);
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)

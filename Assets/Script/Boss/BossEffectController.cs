@@ -63,12 +63,12 @@ public class BossEffectController : MonoBehaviour
         }
 
         // 원상복구
-        if (bossMaterial != null)
-        {
-            bossMaterial.color = originalColor;
-            bossMaterial.SetColor("_EmissionColor", Color.black);
-            bossMaterial.DisableKeyword("_EMISSION");
-        }
+        //if (bossMaterial != null)
+        //{
+        //    bossMaterial.color = originalColor;
+        //    bossMaterial.SetColor("_EmissionColor", Color.black);
+        //    bossMaterial.DisableKeyword("_EMISSION");
+        //}
 
         if (visualTransform != null)
         {

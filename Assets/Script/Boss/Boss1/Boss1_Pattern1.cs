@@ -7,6 +7,7 @@ public class Boss1_Pattern1 : BossPattern
     public float fireInterval = 0.25f;
     public float bulletSpeed = 5f;
     public float rotationSpeed = 5f;
+    public AudioClip soundEffect;
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
@@ -29,6 +30,7 @@ public class Boss1_Pattern1 : BossPattern
             Vector3 dir = boss.player.position - boss.firePoint.position;
             dir.z = 0;
             dir.Normalize();
+            AudioManager.instance.PlaySFX(soundEffect);
 
             GameObject bullet = boss.bulletPool.GetBullet();
             bullet.transform.position = boss.firePoint.position;

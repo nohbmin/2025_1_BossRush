@@ -12,6 +12,8 @@ public class Boss1_Pattern2 : BossPattern
     public GameObject warningSign; // 느낌표 프리팹
     public float warningDistance = 3f; // 보스 기준 거리
     public float warningDuration = 0.5f;
+    public AudioClip soundEffect;
+    public AudioClip ReloadsoundEffect;
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
@@ -30,8 +32,8 @@ public class Boss1_Pattern2 : BossPattern
 
         GameObject warn = GameObject.Instantiate(warningSign, warnPos, Quaternion.identity);
         print(warn.name);
+        AudioManager.instance.PlaySFX(ReloadsoundEffect);
         yield return new WaitForSeconds(waitBeforeFire);
-        print(waitBeforeFire);
         GameObject.Destroy(warn);
         print("destoryed");
 
@@ -52,8 +54,9 @@ public class Boss1_Pattern2 : BossPattern
 
             // 탄환 발사
             Vector3 dir = targetRot * Vector3.up;
-
+            
             GameObject bullet = boss.bulletPool.GetBullet();
+            AudioManager.instance.PlaySFX(soundEffect);
             bullet.transform.position = boss.firePoint.position;
             bullet.transform.rotation = targetRot;
 

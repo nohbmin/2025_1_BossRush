@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Playables;
+using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -99,8 +101,15 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerCollider != null)
             playerCollider.enabled = false;
+
+        StartCoroutine(Tomain());
     }
 
+    private IEnumerator Tomain()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("DeadScene");
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

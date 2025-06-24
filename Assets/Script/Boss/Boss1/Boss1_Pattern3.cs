@@ -8,6 +8,7 @@ public class Boss1_Pattern3 : BossPattern
     public float bulletSpeed; 
     public float waitingtime;
     public float ChaseTime = 1.5f;
+    public AudioClip soundEffect;
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
@@ -43,6 +44,7 @@ public class Boss1_Pattern3 : BossPattern
             Vector3 rotatedDir = Quaternion.Euler(0, 0, angleOffset) * baseDir;
 
             GameObject bullet = boss.bulletPool.GetBullet();
+            AudioManager.instance.PlaySFX(soundEffect);
             bullet.transform.position = boss.firePoint.position;
             bullet.transform.rotation = Quaternion.LookRotation(Vector3.forward, rotatedDir); // XY ���� ȸ��
 
