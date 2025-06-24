@@ -5,6 +5,7 @@ public class Boss1_Pattern3 : BossPattern
 {
     public float spreadAngle = 60f;
     public int bulletCount = 10;
+    public int upgradeHp = 2;
     public float bulletSpeed; 
     public float waitingtime;
     public float ChaseTime = 1.5f;
@@ -12,7 +13,7 @@ public class Boss1_Pattern3 : BossPattern
 
     public override IEnumerator ExecutePattern(int currentHP, int maxHP)
     {
-        if (currentHP <= 3)
+        if (currentHP <= upgradeHp)
         {
             spreadAngle *= 2;
             bulletCount *= 3;

@@ -41,7 +41,7 @@ public class Boss1_Special : BossPattern
                 rb.linearVelocity = shootDir * bulletSpeed;
 
             yield return new WaitForSeconds(currentInterval);
-            currentInterval = Mathf.Min(0.05f, currentInterval - acceleration);
+            currentInterval = Mathf.Max(0.2f, currentInterval - acceleration);
             timer += currentInterval;
         }
 

@@ -102,12 +102,16 @@ public class PlayerHealth : MonoBehaviour
         if (playerCollider != null)
             playerCollider.enabled = false;
 
+        Animator animator = GetComponentInChildren<Animator>();
+        print(animator);
+        animator.SetTrigger("Dead");
+
         StartCoroutine(Tomain());
     }
 
     private IEnumerator Tomain()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("DeadScene");
     }
 

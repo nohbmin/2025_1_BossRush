@@ -24,6 +24,9 @@ public class BossController : MonoBehaviour
     private bool isHit = false;
     private bool isInSpecialPattern = false;
 
+    [SerializeField] private int maxhp = 3;
+    [SerializeField] private int currenthp = 0;
+
     private void Awake()
     {
         foreach (var pattern in patterns) pattern.Initialize(this); 
@@ -33,14 +36,15 @@ public class BossController : MonoBehaviour
     private void Start()
     {
         patternCoroutine = StartCoroutine(PatternLoop());
+        currenthp = maxhp;
     }
 
     private IEnumerator PatternLoop()
     {
         while (true)
         {
-            BossPattern pattern = patterns[currentPatternIndex];
-            yield return StartCoroutine(pattern.ExecutePattern(GetHP(), GetMaxHP()));
+            BossPattern pattern = patterns[Random.Range(0, patterns.Count)];
+            yield return StartCoroutine(pattern.ExecutePattern(currenthp, maxhp));
 
             currentPatternIndex++;
             if (currentPatternIndex >= patterns.Count)
@@ -67,7 +71,7 @@ public class BossController : MonoBehaviour
         isHit = false;
 
         SetWarpPointsActive(true);
-        specialCoroutine = StartCoroutine(specialPattern.ExecutePattern(GetHP(), GetMaxHP()));
+        specialCoroutine = StartCoroutine(specialPattern.ExecutePattern(currenthp, maxhp));
     }
 
     public void EndSpecialPattern()
@@ -105,8 +109,4 @@ public class BossController : MonoBehaviour
                 warp.gameObject.SetActive(isActive);
         }
     }
-
-    // 체력 관련 함수는 필요한 방식으로 구현하거나 연결
-    public int GetHP() => 5;
-    public int GetMaxHP() => 5;
 }
