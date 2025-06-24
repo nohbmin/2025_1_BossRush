@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Settings")]
     public int maxHealth = 3;
     [SerializeField] private int currentHealth;
+    [SerializeField] private float invTime;
 
     [Header("Player Models by Health (Index 0 = Dead)")]
     public GameObject[] healthModels; // Index 0: ü�� 0(���� ����), 1: ü�� 1, ..., maxHealth: ü�� max
@@ -50,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            StartCoroutine(InvincibilityCoroutine(0.3f, 0.1f));
+            StartCoroutine(InvincibilityCoroutine(invTime, 0.1f));
         }
     }
 

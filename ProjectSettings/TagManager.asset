@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WarpPoint
   - MovePoint
+  - bullet
   layers:
   - Default
   - TransparentFX

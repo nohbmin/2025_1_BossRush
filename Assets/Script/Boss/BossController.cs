@@ -4,67 +4,109 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public int maxHP = 10;
-    public int currentHP;
-
-    [Header("대기 시간")]
-    public float WaitTime;
-
-    [Header("공유 오브젝트")]
+    [Header("References")]
     public Transform player;
     public Transform firePoint;
+    public BulletPool bulletPool;
+    public BossEffectController effectController;
 
-    [Header("패턴")]
-    public List<BossPattern> normalPatterns = new List<BossPattern>();
+    [Header("Patterns")]
+    public List<BossPattern> patterns;
     public BossPattern specialPattern;
 
-    [Header("총알 풀링")]
-    public BulletPool bulletPool;
+    [Header("Settings")]
+    public float patternCooldown = 1f;
+    public List<WarpPoint> warpPoints;
 
-    private int patternCount = 0;
+    private int currentPatternIndex = 0;
+    private Coroutine patternCoroutine;
+    private Coroutine specialCoroutine;
+    private bool isHit = false;
+    private bool isInSpecialPattern = false;
+
+    private void Awake()
+    {
+        foreach (var pattern in patterns) pattern.Initialize(this); 
+        specialPattern.Initialize(this);
+    }
 
     private void Start()
     {
-        currentHP = maxHP;
-
-        var allPatterns = GetComponents<BossPattern>();
-
-        foreach (var pattern in allPatterns)
-        {
-            if (pattern != specialPattern)
-                normalPatterns.Add(pattern);
-
-            pattern.Initialize(this);  // BossController 참조 전달
-        }
-
-        if (bulletPool == null)
-            Debug.LogWarning("BulletPool이 할당되지 않았습니다!");
-
-        StartCoroutine(PatternLoop());
+        patternCoroutine = StartCoroutine(PatternLoop());
     }
 
     private IEnumerator PatternLoop()
     {
-        while (currentHP > 0)
+        while (true)
         {
-            if (patternCount > 0 && patternCount % 3 == 0)
+            BossPattern pattern = patterns[currentPatternIndex];
+            yield return StartCoroutine(pattern.ExecutePattern(GetHP(), GetMaxHP()));
+
+            currentPatternIndex++;
+            if (currentPatternIndex >= patterns.Count)
             {
-                if (specialPattern != null)
-                    yield return StartCoroutine(specialPattern.ExecutePattern(currentHP, maxHP));
-            }
-            else
-            {
-                if (normalPatterns.Count > 0)
+                currentPatternIndex = 0;
+
+                // 3패턴마다 특수 패턴 시도
+                if (!isInSpecialPattern)
                 {
-                    int idx = Random.Range(0, normalPatterns.Count);
-                    print(normalPatterns[idx] + " 실행됨");
-                    yield return StartCoroutine(normalPatterns[idx].ExecutePattern(currentHP, maxHP));
+                    StartSpecialPattern();
+                    yield break; // 패턴 루프 중단, 특수 패턴으로 전환
                 }
             }
-            patternCount++;
-            yield return new WaitForSeconds(WaitTime);
+
+            yield return new WaitForSeconds(patternCooldown);
+        }
+    }
+
+    public void StartSpecialPattern()
+    {
+        if (specialCoroutine != null) return;
+
+        isInSpecialPattern = true;
+        isHit = false;
+
+        SetWarpPointsActive(true);
+        specialCoroutine = StartCoroutine(specialPattern.ExecutePattern(GetHP(), GetMaxHP()));
+    }
+
+    public void EndSpecialPattern()
+    {
+        if (!isInSpecialPattern) return;
+
+        isInSpecialPattern = false;
+        SetWarpPointsActive(false);
+
+        if (specialCoroutine != null)
+        {
+            StopCoroutine(specialCoroutine);
+            specialCoroutine = null;
         }
 
-        Debug.Log("Boss Dead!");
+        patternCoroutine = StartCoroutine(PatternLoop());
     }
+
+    public void OnHitByWarp()
+    {
+        print("피격");
+        if (!isInSpecialPattern || isHit) return;
+
+        isHit = true;
+        //effectController.PlayHitEffect();
+
+        EndSpecialPattern();
+    }
+
+    private void SetWarpPointsActive(bool isActive)
+    {
+        foreach (var warp in warpPoints)
+        {
+            if (warp != null)
+                warp.gameObject.SetActive(isActive);
+        }
+    }
+
+    // 체력 관련 함수는 필요한 방식으로 구현하거나 연결
+    public int GetHP() => 5;
+    public int GetMaxHP() => 5;
 }
