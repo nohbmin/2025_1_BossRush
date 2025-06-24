@@ -4,8 +4,8 @@ using UnityEngine;
 public class Boss1_Special : BossPattern
 {
     public float initialDelay = 1f;
-    public float fireInterval = 0.4f;
-    public float acceleration = 0.05f;
+    public float fireInterval = 1f;
+    public float acceleration = 0.01f;
     public float duration = 10f;
     public float bulletSpeed = 15f;
     public AudioClip soundeffect;
@@ -41,7 +41,7 @@ public class Boss1_Special : BossPattern
                 rb.linearVelocity = shootDir * bulletSpeed;
 
             yield return new WaitForSeconds(currentInterval);
-            currentInterval = Mathf.Max(0.05f, currentInterval - acceleration);
+            currentInterval = Mathf.Min(0.05f, currentInterval - acceleration);
             timer += currentInterval;
         }
 

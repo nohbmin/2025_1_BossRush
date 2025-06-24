@@ -107,7 +107,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator Tomain()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("DeadScene");
     }
 
