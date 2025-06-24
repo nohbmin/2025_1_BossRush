@@ -289,22 +289,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae99943c8b57c147a0a08c38784133a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 5
-  currentHP: 0
-  isInSpecialPattern: 0
-  normalPatterns:
+  player: {fileID: 2024086191}
+  firePoint: {fileID: 132537848}
+  bulletPool: {fileID: 1273716913}
+  effectController: {fileID: 0}
+  patterns:
   - {fileID: 229867280}
   - {fileID: 229867279}
   - {fileID: 229867278}
   specialPattern: {fileID: 229867281}
-  normalPatternCount: 0
-  player: {fileID: 2024086191}
-  firePoint: {fileID: 132537848}
-  bulletPool: {fileID: 1273716913}
-  specialPatternDuration: 8
-  HasBeenHitDuringSpecial: 0
-  animator: {fileID: 0}
-  effectController: {fileID: 0}
+  patternCooldown: 1
+  warpPoints:
+  - {fileID: 666820459}
+  - {fileID: 831268646}
+  - {fileID: 732770001}
+  - {fileID: 1184147208}
 --- !u!114 &229867278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,14 +366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2739dd24698267140b6990595076bbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialDelay: 1
   fireInterval: 0.3
-  bulletSpeed: 10
+  acceleration: 0.05
   duration: 10
-  warpPoints:
-  - {fileID: 732769997}
-  - {fileID: 831268642}
-  - {fileID: 666820455}
-  - {fileID: 1184147204}
+  bulletSpeed: 10
 --- !u!1 &282141328
 GameObject:
   m_ObjectHideFlags: 0

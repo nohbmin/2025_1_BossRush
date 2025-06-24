@@ -4,121 +4,109 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    [Header("Boss Settings")]
-    public int maxHP = 10;
-    [SerializeField]private int currentHP;
-
-    public bool isInSpecialPattern = false;
-
-    [Header("Pattern Settings")]
-    public List<BossPattern> normalPatterns;
-    public BossPattern specialPattern;
-    [SerializeField]private int normalPatternCount = 0;
-
     [Header("References")]
     public Transform player;
     public Transform firePoint;
     public BulletPool bulletPool;
+    public BossEffectController effectController;
 
-    [Header("Special Pattern")]
-    public float specialPatternDuration = 8f;
-    public bool HasBeenHitDuringSpecial = false;
+    [Header("Patterns")]
+    public List<BossPattern> patterns;
+    public BossPattern specialPattern;
 
-    [Header("Visual Feedback")]
-    public Animator animator;
-    public BossEffectController effectController; // 쉐이크/임팩트용
+    [Header("Settings")]
+    public float patternCooldown = 1f;
+    public List<WarpPoint> warpPoints;
 
+    private int currentPatternIndex = 0;
+    private Coroutine patternCoroutine;
+    private Coroutine specialCoroutine;
+    private bool isHit = false;
+    private bool isInSpecialPattern = false;
 
     private void Awake()
     {
-        foreach (var pattern in normalPatterns)
-        {
-            pattern.Initialize(this);
-        }
+        foreach (var pattern in patterns) pattern.Initialize(this); 
         specialPattern.Initialize(this);
     }
+
     private void Start()
     {
-        currentHP = maxHP;
-        StartCoroutine(PatternLoop());
+        patternCoroutine = StartCoroutine(PatternLoop());
     }
 
     private IEnumerator PatternLoop()
     {
-        while (currentHP > 0)
+        while (true)
         {
-            if (normalPatternCount > 0 && normalPatternCount % 3 == 0)
+            BossPattern pattern = patterns[currentPatternIndex];
+            yield return StartCoroutine(pattern.ExecutePattern(GetHP(), GetMaxHP()));
+
+            currentPatternIndex++;
+            if (currentPatternIndex >= patterns.Count)
             {
-                yield return StartCoroutine(ExecuteSpecialPattern());
-                normalPatternCount = 0;
-                continue;
+                currentPatternIndex = 0;
+
+                // 3패턴마다 특수 패턴 시도
+                if (!isInSpecialPattern)
+                {
+                    StartSpecialPattern();
+                    yield break; // 패턴 루프 중단, 특수 패턴으로 전환
+                }
             }
 
-            BossPattern selected = normalPatterns[Random.Range(0, normalPatterns.Count)];
-            yield return StartCoroutine(selected.ExecutePattern(currentHP, maxHP));
-            normalPatternCount++;
-
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(patternCooldown);
         }
-
-        Die();
     }
 
-    private IEnumerator ExecuteSpecialPattern()
+    public void StartSpecialPattern()
     {
+        if (specialCoroutine != null) return;
+
         isInSpecialPattern = true;
-        HasBeenHitDuringSpecial = false;
+        isHit = false;
 
-        if (specialPattern != null)
-        {
-            Coroutine patternRoutine = StartCoroutine(specialPattern.ExecutePattern(currentHP, maxHP));
-            float elapsed = 0f;
-
-            while (elapsed < specialPatternDuration && !HasBeenHitDuringSpecial)
-            {
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            StopCoroutine(patternRoutine);
-        }
-
-        isInSpecialPattern = false;
+        SetWarpPointsActive(true);
+        specialCoroutine = StartCoroutine(specialPattern.ExecutePattern(GetHP(), GetMaxHP()));
     }
 
     public void EndSpecialPattern()
     {
-        isInSpecialPattern = false;
+        if (!isInSpecialPattern) return;
 
-        // 추가적으로 패턴 루프 재시작이 필요하다면 여기에 작성
-        // 예시: StartCoroutine(PatternLoop());
+        isInSpecialPattern = false;
+        SetWarpPointsActive(false);
+
+        if (specialCoroutine != null)
+        {
+            StopCoroutine(specialCoroutine);
+            specialCoroutine = null;
+        }
+
+        patternCoroutine = StartCoroutine(PatternLoop());
     }
 
     public void OnHitByWarp()
     {
-        if (isInSpecialPattern && !HasBeenHitDuringSpecial)
+        print("피격");
+        if (!isInSpecialPattern || isHit) return;
+
+        isHit = true;
+        //effectController.PlayHitEffect();
+
+        EndSpecialPattern();
+    }
+
+    private void SetWarpPointsActive(bool isActive)
+    {
+        foreach (var warp in warpPoints)
         {
-            HasBeenHitDuringSpecial = true;
-            TakeDamage(1);
-            effectController?.PlayHitEffect();
+            if (warp != null)
+                warp.gameObject.SetActive(isActive);
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHP -= damage;
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
-            StopAllCoroutines();
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        animator?.SetTrigger("Die");
-        Debug.Log("Boss Defeated!");
-        // 추후 보스 사망 처리 추가
-    }
+    // 체력 관련 함수는 필요한 방식으로 구현하거나 연결
+    public int GetHP() => 5;
+    public int GetMaxHP() => 5;
 }
