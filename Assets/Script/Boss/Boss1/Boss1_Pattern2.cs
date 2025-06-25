@@ -33,7 +33,6 @@ public class Boss1_Pattern2 : BossPattern
         GameObject warn = GameObject.Instantiate(warningSign, warnPos, Quaternion.identity);
         print(warn.name);
         AudioManager.instance.PlaySFX(ReloadsoundEffect);
-        boss.animator.Play("Gun_Reload");
         yield return new WaitForSeconds(waitBeforeFire);
         GameObject.Destroy(warn);
         print("destoryed");
@@ -58,7 +57,6 @@ public class Boss1_Pattern2 : BossPattern
             
             GameObject bullet = boss.bulletPool.GetBullet();
             AudioManager.instance.PlaySFX(soundEffect);
-            boss.animator.Play("Gun_Shoot");
             bullet.transform.position = boss.firePoint.position;
             bullet.transform.rotation = targetRot;
 
