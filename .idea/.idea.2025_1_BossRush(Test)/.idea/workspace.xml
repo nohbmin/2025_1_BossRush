@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f861b7c9-f2ad-4215-8ab7-c080c1c26d8f" name="변경" comment="" />
+    <list default="true" id="f861b7c9-f2ad-4215-8ab7-c080c1c26d8f" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.2025_1_BossRush(Test)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2025_1_BossRush(Test)/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Reroad.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Reroad.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Reroad.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Reroad.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Shoot.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Shoot.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Shoot.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Shoot.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Turn.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Turn.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Turn.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Kimbk/Anim/Gun/Controller/Gun_Turn.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Boss/Boss1/Boss1_Special.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Boss/Boss1/Boss1_Special.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Boss/BossController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Boss/BossController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +113,7 @@
       <workItem from="1750668727537" duration="1567000" />
       <workItem from="1750686931359" duration="25000" />
       <workItem from="1750740847374" duration="2945000" />
+      <workItem from="1750846645673" duration="1679000" />
     </task>
     <servers />
   </component>
