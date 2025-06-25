@@ -51,6 +51,7 @@ public class Boss1_Pattern3 : BossPattern
 
             GameObject bullet = boss.bulletPool.GetBullet();
             AudioManager.instance.PlaySFX(soundEffect);
+            boss.animator.Play("Gun_Shoot");
             bullet.transform.position = boss.firePoint.position;
             bullet.transform.rotation = Quaternion.LookRotation(Vector3.forward, rotatedDir); // XY ���� ȸ��
 
