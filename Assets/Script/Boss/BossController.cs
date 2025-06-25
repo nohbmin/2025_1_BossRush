@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -96,18 +95,12 @@ public class BossController : MonoBehaviour
         print("ÇÇ°Ý");
         effectController.PlayHitEffect();
         currenthp--;
-        if (currenthp <= 0) Dead();
         if (!isInSpecialPattern || isHit) return;
 
         isHit = true;
         //effectController.PlayHitEffect();
 
         EndSpecialPattern();
-    }
-
-    private void Dead()
-    {
-        SceneManager.LoadScene("GameClear");
     }
 
     private void SetWarpPointsActive(bool isActive)
