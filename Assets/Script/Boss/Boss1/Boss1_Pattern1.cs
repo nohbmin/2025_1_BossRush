@@ -44,6 +44,7 @@ public class Boss1_Pattern1 : BossPattern
             dir.z = 0;
             dir.Normalize();
             AudioManager.instance.PlaySFX(soundEffect);
+            boss.animator.Play("Gun_Shoot");
 
             GameObject bullet = boss.bulletPool.GetBullet();
             bullet.transform.position = boss.firePoint.position;

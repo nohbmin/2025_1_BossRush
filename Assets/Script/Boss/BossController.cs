@@ -27,6 +27,8 @@ public class BossController : MonoBehaviour
     [SerializeField] private int maxhp = 3;
     [SerializeField] private int currenthp = 0;
 
+    public Animator animator;
+
     private void Awake()
     {
         foreach (var pattern in patterns) pattern.Initialize(this); 
