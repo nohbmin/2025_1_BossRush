@@ -19,6 +19,7 @@ public class Boss1_Special : BossPattern
 
         while (timer < duration)
         {
+            boss.animator.Play("Gun_Turn");
             if (!boss || !boss.gameObject.activeSelf) yield break;
             if (!boss.player) yield break;
 
@@ -30,7 +31,6 @@ public class Boss1_Special : BossPattern
 
             // 탄환 발사
             Vector3 shootDir = boss.transform.up;
-            boss.animator.Play("Gun_Shoot");
             GameObject bullet = boss.bulletPool.GetBullet();
             bullet.transform.position = boss.firePoint.position;
             bullet.transform.rotation = Quaternion.LookRotation(Vector3.forward, shootDir);
